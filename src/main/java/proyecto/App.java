@@ -1,6 +1,8 @@
 package proyecto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import spark.ModelAndView;
 import spark.Request;
@@ -17,13 +19,14 @@ public class App {
 
     public static void main(String[] args) {
         Spark.staticFileLocation("/public");
+        final List<Libro> libros = new ArrayList<>();
 
         get(new FreeMarkerRoute("/") {
             @Override
             public ModelAndView handle(Request request, Response response) {
                 Map<String, Object> data = new HashMap<>();
 
-                //data.put("users", users);
+                //data.put("libros", libros);
                 return modelAndView(null, "list.ftl");
             }
         });
