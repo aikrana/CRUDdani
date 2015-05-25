@@ -12,8 +12,8 @@
 		<div class="navbar-inner">
 			<ul class="nav">
 
-				<li class="active"><a href="/"><i class="icon-th icon-black"></i> Read</a></li>
-				<li ><a href="/user/create"><i class="icon-plus-sign icon-black"></i> Create</a></li>
+				<li class="active"><a href="/"><i class="icon-th icon-black"></i> Listar</a></li>
+				<li ><a href="/user/create"><i class="icon-plus-sign icon-black"></i> Crear</a></li>
 
 			</ul>
 		</div>

@@ -20,23 +20,20 @@ import java.util.logging.Logger;
  */
 public class DAO {
 
-    public static void InsertarLibro(Libro libro) throws Exception {
+    public static void InsertarLibro(Libro libro) {
         try {
             Conexion conexion = new Conexion();
             Connection con = conexion.AbrirConexion();
             PreparedStatement stmt;
-            stmt = con.prepareStatement("INSERT INTO contactos values(?,?,?,?,?,?)");
-            /*            stmt.setString(1, contacto.getNombre());
-             stmt.setString(2, contacto.getTelefono());
-             stmt.setString(3, contacto.getDireccion());
-             stmt.setString(4, contacto.getPoblacion());
-             stmt.setString(5, contacto.getProvincia());
-             stmt.setString(6, contacto.getFechaCumple());*/
+            stmt = con.prepareStatement("INSERT INTO libros values(0,?,?,?,?)");
+            stmt.setString(1, libro.getTitulo());
+            stmt.setString(2, libro.getAutor());
+            stmt.setString(3, libro.getEditorial());
+            stmt.setString(4, libro.getIsbn());
             stmt.executeUpdate();
             conexion.CerrarConexion(con);
         } catch (ClassNotFoundException | SQLException e) {//SQLException y ClassNotFoundException
-            e.printStackTrace();
-            throw new Exception("Ha sido imposible establecer la conexion" + e.getMessage());
+            System.out.println("ERROR de SQL o clase en DAO.InsertarLibro");
         } catch (Exception ex) {
             System.out.println("ERROR GENERAL");
         }
@@ -52,10 +49,10 @@ public class DAO {
 
             int num = stmt.executeUpdate();
             /*if (num == 0) {
-            System.out.println("No se encontró el contacto\n");
-            } else if (num == 1) {
-            System.out.println("Contacto eliminado correctamente\n");
-            }*/
+             System.out.println("No se encontró el contacto\n");
+             } else if (num == 1) {
+             System.out.println("Contacto eliminado correctamente\n");
+             }*/
             conexion.CerrarConexion(con);
         } catch (ClassNotFoundException | SQLException e) {//SQLException y ClassNotFoundException
             System.out.println("ERROR de SQL o clase en DAO.BorrarLibro");
