@@ -92,4 +92,51 @@ public class DAO {
         return libros;
     }
 
+    public static Libro BuscarLibro(int id) {
+        Libro libro = null;
+
+        try {
+            Conexion conexion = new Conexion();
+            Connection con = conexion.AbrirConexion();
+            PreparedStatement stmt;
+            ResultSet rs = null;
+
+            stmt = con.prepareStatement("select * from libros where id = ?");
+            stmt.setInt(1, id);
+
+            rs = stmt.executeQuery();
+
+            if (rs.first()) {
+                libro = new Libro(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+            }
+            conexion.CerrarConexion(con);
+
+        } catch (ClassNotFoundException | SQLException e) {//SQLException y ClassNotFoundException
+            System.out.println("ERROR de SQL o clase en DAO.BuscarLibro");
+        } catch (Exception ex) {
+            System.out.println("ERROR GENERAL en DAO.BuscarLibro");
+        }
+        return libro;
+
+    }
+
+    public static void ActualizarLibro(Libro libro) {
+        try {
+            Conexion conexion = new Conexion();
+            Connection con = conexion.AbrirConexion();
+            PreparedStatement stmt;
+            stmt = con.prepareStatement("update libros set titulo = ?, autor = ?, editorial = ?, isbn = ? where id = ?");
+            stmt.setString(1, libro.getTitulo());
+            stmt.setString(2, libro.getAutor());
+            stmt.setString(3, libro.getEditorial());
+            stmt.setString(4, libro.getIsbn());
+            stmt.setInt(5, libro.getId());
+            stmt.executeUpdate();
+            conexion.CerrarConexion(con);
+        } catch (ClassNotFoundException | SQLException e) {//SQLException y ClassNotFoundException
+            System.out.println("ERROR de SQL o clase en DAO.ActualizarLibro");
+        } catch (Exception ex) {
+            System.out.println("ERROR GENERAL en DAO.ActualizarLibro");
+        }
+    }
 }

@@ -7,7 +7,7 @@
 <div class="container">
  
             <div class="jumbotron">
-                <h1>Insertar Libro</h1>
+                <h1>${jumbotron}</h1>
             </div>
  
             <div class="navbar">
@@ -22,18 +22,18 @@
 
 <fieldset>
 
-  <form name="user" action="/user/create" method="post" class="form-horizontal">
+  <form name="user" action="${action}" method="post" class="form-horizontal">
         <div class="input-prepend">
-        	T&iacute;tulo: <input type="text" name="titulo" class="input-xlarge"/><br/><br/>
+        	T&iacute;tulo: <input type="text" name="titulo" value="${titulo}" class="input-xlarge"/><br/><br/>
         </div>
         <div class="input-prepend">
-    		Autor: <input type="text" name="autor" class="input-xlarge"/><br/><br/>
+    		Autor: <input type="text" name="autor" value="${autor}" class="input-xlarge"/><br/><br/>
     	</div>
     	<div class="input-prepend">
-    		Editorial: <input type="text" name="editorial" class="input-xlarge"/><br/><br/>
+    		Editorial: <input type="text" name="editorial" value="${editorial}" class="input-xlarge"/><br/><br/>
     	</div>
     	<div class="input-prepend">
-    		ISBN: <input type="text" name="isbn" class="input-xlarge"/><br/><br/>
+    		ISBN: <input type="text" name="isbn" value="${isbn}" class="input-xlarge"/><br/><br/>
     	</div>
     <input type="submit" value="  Guardar  " class="btn btn-primary"/>
   </form>
