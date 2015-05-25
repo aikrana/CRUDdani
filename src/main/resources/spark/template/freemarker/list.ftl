@@ -31,26 +31,28 @@
 		</thead>
 
 		<tbody>    
-					<tr>            
-						<td>Charlie chapas</td>
-						<td>char@gmail.com</td>
-						<td>6325841251</td>
-						<td>Bajo puente</td>
-						<td><a href="/user/update/24"><button type="button" class="btn btn-default btn-sm">
-							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-						</button></a>
-						<a href="/user/delete/24"><button type="button" class="btn btn-default btn-sm">
-							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-						</button></a>
+			<#list libros as libro>
+  				<tr>
+    				<td>${libro.titulo}</td>
+    				<td>${libro.autor}</td>
+    				<td>${libro.editorial}</td>
+    				<td>${libro.isbn}</td>
+    				<td>
+				    	<a href="/user/update/${libro.id}">
+    						<button type="button" class="btn btn-default btn-sm">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</button>
+						</a>
+						<a href="/user/delete/${libro.id}">
+							<button type="button" class="btn btn-default btn-sm">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</button>
+						</a>
 					</td>
-				</tr>
-			</tbody>                    
- <#-- <#list users as user>
-  <tr>
-    <td>${user.firstname}</td> <td>${user.lastname}</td>
-  </tr>
-  </#list> -->
-</table>
+  				</tr>
+  			</#list>
+		</tbody>                    
+ 	</table>
 </div><#--end container-->
 </#macro>
 
