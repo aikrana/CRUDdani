@@ -18,7 +18,9 @@ import spark.template.freemarker.FreeMarkerRoute;
  */
 public class App {
 
-    static List<Libro> libros = new ArrayList<>();
+    static ArrayList<ArrayList<Libro>> paginas = new ArrayList<>();
+    static ArrayList<Libro> libros;
+    static final int FILAS = 5;
 
     public static void main(String[] args) {
         Spark.staticFileLocation("/public");
@@ -28,7 +30,8 @@ public class App {
             public ModelAndView handle(Request request, Response response) {
                 Map<String, Object> data = new HashMap<>();
                 try {
-                    libros = DAO.ListarLibros();
+                    paginas = DAO.ListarLibros(FILAS);
+                    libros = paginas.get(0);
                 } catch (Exception ex) {
                     System.out.println("ERROR GENERAL en DAO.ListarLibros");
                 }
@@ -38,11 +41,28 @@ public class App {
             }
         });
 
-        get(new FreeMarkerRoute("/redirecciona") {
+        get(new FreeMarkerRoute("/p/:pid") {
             @Override
             public ModelAndView handle(Request request, Response response) {
-                response.redirect("/");
-                return modelAndView(new HashMap<>(), "");
+                Map<String, Object> data = new HashMap<>();
+                try {
+                    int pid = Integer.parseInt(request.params(":pid"));
+
+                    if (pid < paginas.size() && pid > 0) {
+                        libros = paginas.get(pid - 1);
+                        data.put("libros", libros);
+                    } else {
+                        response.redirect("/");
+                    }
+
+                } catch (NumberFormatException ex) {
+                    response.redirect("/");
+                } catch (Exception ex) {
+                    response.redirect("/");
+                    System.out.println("ERROR GENERAL en DAO.ListarLibros");
+                }
+
+                return modelAndView(data, "list.ftl");
             }
         });
 
@@ -128,6 +148,15 @@ public class App {
 
                 response.redirect("/");
 
+                return modelAndView(new HashMap<>(), "");
+            }
+        });
+        
+        
+        get(new FreeMarkerRoute("*") {
+            @Override
+            public ModelAndView handle(Request request, Response response) {
+                response.redirect("/");
                 return modelAndView(new HashMap<>(), "");
             }
         });

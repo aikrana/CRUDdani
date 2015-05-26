@@ -30,27 +30,29 @@
 			</tr>
 		</thead>
 
-		<tbody>    
-			<#list libros as libro>
-  				<tr>
-    				<td>${libro.titulo}</td>
-    				<td>${libro.autor}</td>
-    				<td>${libro.editorial}</td>
-    				<td>${libro.isbn}</td>
-    				<td>
-				    	<a href="/user/update/${libro.id}">
-    						<button type="button" class="btn btn-default btn-sm">
-								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							</button>
-						</a>
-						<a href="/user/delete/${libro.id}">
-							<button type="button" class="btn btn-default btn-sm">
-								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-							</button>
-						</a>
-					</td>
-  				</tr>
-  			</#list>
+		<tbody>
+			<#if libros??>
+				<#list libros as libro>
+	  				<tr>
+    					<td>${libro.titulo}</td>
+	    				<td>${libro.autor}</td>
+	    				<td>${libro.editorial}</td>
+	    				<td>${libro.isbn}</td>
+	    				<td>
+					    	<a href="/user/update/${libro.id}">
+    							<button type="button" class="btn btn-default btn-sm">
+									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+								</button>
+							</a>
+							<a href="/user/delete/${libro.id}">
+								<button type="button" class="btn btn-default btn-sm">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</a>
+						</td>
+  					</tr>
+	  			</#list>
+  			</#if>
 		</tbody>                    
  	</table>
 </div><#--end container-->
