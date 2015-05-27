@@ -48,7 +48,7 @@ public class App {
                 try {
                     int pid = Integer.parseInt(request.params(":pid"));
 
-                    if (pid < paginas.size() && pid > 0) {
+                    if (pid <= paginas.size() && pid > 0) {
                         libros = paginas.get(pid - 1);
                         data.put("libros", libros);
                     } else {

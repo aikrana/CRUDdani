@@ -98,14 +98,24 @@ public class DAO {
             stmt = con.prepareStatement("select * from libros order by titulo");
             rs = stmt.executeQuery();
             
+            
+            
             if (rs.first()) {
-
                 rs.beforeFirst();
                 for (int p=0; !rs.isLast(); p++){
                     paginas.add(new ArrayList<Libro>());
-                    for (int f=0; f< filas && rs.next(); f++){
-                        paginas.get(p).add(new Libro(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+                    int f = 0;
+                    
+                    while(f < filas && !rs.isLast()) {                        
+                        rs.next();
+                        paginas.get(p).add(new Libro(
+                                rs.getInt(1), rs.getString(2),
+                                rs.getString(3), rs.getString(4),
+                                rs.getString(5)
+                        ));
+                        f++;
                     }
+                    
                 }
             }
 
