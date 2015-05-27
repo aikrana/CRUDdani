@@ -1,12 +1,25 @@
 body {
 	padding-top: 20px;
 	padding-bottom: 60px;
+	background: url(/images/book-wallpaper.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
+.tabla {
+	background-color: rgb(214, 214, 194);
+	border-radius: 7px 7px 7px 7px;
+ 	overflow:hidden;
 
+}
 /* Custom container */
 .container {
 	margin: 0 auto;
 	max-width: 1000px;
+	background-color: rgba(153, 153, 102, 0.9);
+	border-radius: 10px 10px 10px 10px;
+ 	overflow:hidden;
 }
 .container > hr {
 	margin: 60px 0;
@@ -14,6 +27,8 @@ body {
 
 /* Main marketing message and sign up button */
 .jumbotron {
+	background-color: rgba(0, 153, 102, 0.35);
+
 	margin: 20px 0;
 	text-align: center;
 }

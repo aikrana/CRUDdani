@@ -18,8 +18,8 @@ import spark.template.freemarker.FreeMarkerRoute;
  */
 public class App {
 
-    static ArrayList<ArrayList<Libro>> paginas = new ArrayList<>();
-    static ArrayList<Libro> libros;
+    static ArrayList<ArrayList<Libro>> paginas;
+
     static final int FILAS = 5;
 
     public static void main(String[] args) {
@@ -28,37 +28,44 @@ public class App {
         get(new FreeMarkerRoute("/") {
             @Override
             public ModelAndView handle(Request request, Response response) {
-                Map<String, Object> data = new HashMap<>();
                 try {
                     paginas = DAO.ListarLibros(FILAS);
-                    libros = paginas.get(0);
                 } catch (Exception ex) {
                     System.out.println("ERROR GENERAL en DAO.ListarLibros");
                 }
-                data.put("libros", libros);
+                response.redirect("/p/1");
 
-                return modelAndView(data, "list.ftl");
+                return modelAndView(new HashMap<>(), "");
             }
         });
 
-        get(new FreeMarkerRoute("/p/:pid") {
+        get(new FreeMarkerRoute("/p/:page") {
             @Override
             public ModelAndView handle(Request request, Response response) {
                 Map<String, Object> data = new HashMap<>();
+                ArrayList<Libro> libros;
                 try {
-                    int pid = Integer.parseInt(request.params(":pid"));
-
-                    if (pid <= paginas.size() && pid > 0) {
-                        libros = paginas.get(pid - 1);
-                        data.put("libros", libros);
-                    } else {
-                        response.redirect("/");
+                    if (paginas == (null)) {
+                        paginas = DAO.ListarLibros(FILAS);
                     }
+                    if (paginas.isEmpty()) {
+                        return modelAndView(data, "list.ftl");
+                    } else {
+                        int page = Integer.parseInt(request.params(":page"));
 
+                        if (page <= paginas.size() && page > 0) {
+                            libros = paginas.get(page - 1);
+                            data.put("libros", libros);
+                            data.put("page", page);
+                            data.put("pages", paginas.size());
+                        } else {
+                            response.redirect("/p/1");
+                        }
+                    }
                 } catch (NumberFormatException ex) {
-                    response.redirect("/");
+                    response.redirect("/p/1");
                 } catch (Exception ex) {
-                    response.redirect("/");
+                    response.redirect("/p/1");
                     System.out.println("ERROR GENERAL en DAO.ListarLibros");
                 }
 
@@ -151,9 +158,8 @@ public class App {
                 return modelAndView(new HashMap<>(), "");
             }
         });
-        
-        
-        get(new FreeMarkerRoute("*") {
+
+        get(new FreeMarkerRoute("/:redirecciona") {
             @Override
             public ModelAndView handle(Request request, Response response) {
                 response.redirect("/");
