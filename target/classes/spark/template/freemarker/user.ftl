@@ -13,11 +13,17 @@
             <div class="navbar">
     <div class="navbar-inner">
         <ul class="nav">
- 
-            <li ><a href="/"><i class="icon-th icon-black"></i> Listar</a></li>
-            <li class="active"><a href="/user/create"><i class="icon-plus-sign icon-black"></i> Crear</a></li>
- 
-                    </ul>
+            <li>
+                <a href="/"><button type="button" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                </button></a>
+            </li>
+            <li>
+                <a href="/user/create"><button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button></a>
+            </li>
+        </ul>
     </div>
 
 <fieldset>
