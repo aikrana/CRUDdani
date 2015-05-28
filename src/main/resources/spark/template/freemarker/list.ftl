@@ -46,12 +46,12 @@
 	    				<td>${libro.editorial}</td>
 	    				<td>${libro.isbn}</td>
 	    				<td>
-					    	<a href="/user/update/${libro.id}">
+					    	<a href="/user/update/${libro.id}?p=${page}">
     							<button type="button" class="btn btn-default btn-sm">
 									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								</button>
 							</a>
-							<a href="/user/delete/${libro.id}">
+							<a href="/user/delete/${libro.id}?p=${page}">
 								<button type="button" class="btn btn-default btn-sm">
 									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 								</button>

@@ -41,7 +41,9 @@
     	<div class="input-prepend">
     		ISBN: <input type="text" name="isbn" value="${isbn}" class="input-xlarge"/><br/><br/>
     	</div>
-    <input type="submit" value="  Guardar  " class="btn btn-primary"/>
+        
+        <input type="submit" value="  Guardar  " class="btn btn-primary"/>
+        <#if p??><input type="hidden" name="p" value="${p}"></#if><#--source page number for redirection-->
   </form>
 </fieldset>
 <br/>

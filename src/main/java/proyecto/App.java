@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import spark.ModelAndView;
+import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
@@ -77,10 +78,16 @@ public class App {
             @Override
             public ModelAndView handle(Request request, Response response) {
                 int id = Integer.parseInt(request.params(":user_id"));
+                int page = Integer.parseInt(request.queryParams("p"));
 
-                DAO.BorrarLibro(id);
+                try {
+                    DAO.BorrarLibro(id);
+                    paginas = DAO.ListarLibros(FILAS);
+                } catch (Exception ex) {
+                    System.out.println("ERROR GENERAL en DAO.ListarLibros desde /user/delete");
+                }
 
-                response.redirect("/");
+                response.redirect("/p/" + page);
                 return modelAndView(new HashMap<>(), "");
             }
         });
@@ -120,7 +127,7 @@ public class App {
             @Override
             public ModelAndView handle(Request request, Response response) {
                 int id = Integer.parseInt(request.params(":user_id"));
-
+                int page = Integer.parseInt(request.queryParams("p"));
                 Map<String, Object> data = new HashMap<>();
 
                 Libro libro = DAO.BuscarLibro(id);
@@ -133,6 +140,7 @@ public class App {
                     data.put("editorial", libro.getEditorial());
                     data.put("isbn", libro.getIsbn());
                     data.put("id", libro.getId());
+                    data.put("p", page);
                 } else {
                     response.redirect("/");
                 }
@@ -145,15 +153,20 @@ public class App {
             @Override
             public ModelAndView handle(Request request, Response response) {
                 int id = Integer.parseInt(request.params(":user_id"));
+                int page = Integer.parseInt(request.queryParams("p"));
 
                 String titulo = request.queryParams("titulo");
                 String autor = request.queryParams("autor");
                 String editorial = request.queryParams("editorial");
                 String isbn = request.queryParams("isbn");
 
-                DAO.ActualizarLibro(new Libro(id, titulo, autor, editorial, isbn));
-
-                response.redirect("/");
+                try {
+                    DAO.ActualizarLibro(new Libro(id, titulo, autor, editorial, isbn));
+                    paginas = DAO.ListarLibros(FILAS);
+                } catch (Exception ex) {
+                    System.out.println("ERROR GENERAL en DAO.ListarLibros o DAO.ActualizarLibro desde /user/update");
+                }
+                response.redirect("/p/" + page);
 
                 return modelAndView(new HashMap<>(), "");
             }
