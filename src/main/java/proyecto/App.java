@@ -9,8 +9,7 @@ import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
-import static spark.Spark.get;
-import static spark.Spark.post;
+import static spark.Spark.*;
 import spark.template.freemarker.FreeMarkerRoute;
 
 /**
@@ -19,11 +18,16 @@ import spark.template.freemarker.FreeMarkerRoute;
  */
 public class App {
 
+    private static final String IP_ADDRESS = System.getenv("OPENSHIFT_DIY_IP") != null ? System.getenv("OPENSHIFT_DIY_IP") : "localhost";
+    private static final int PORT = System.getenv("OPENSHIFT_DIY_PORT") != null ? Integer.parseInt(System.getenv("OPENSHIFT_DIY_PORT")) : 4567;
+
     static ArrayList<ArrayList<Libro>> paginas;
 
     static final int FILAS = 5;
 
     public static void main(String[] args) {
+        setIpAddress(IP_ADDRESS);
+        setPort(PORT);
         Spark.staticFileLocation("/public");
 
         get(new FreeMarkerRoute("/") {
