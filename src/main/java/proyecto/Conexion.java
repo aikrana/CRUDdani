@@ -20,7 +20,7 @@ public class Conexion {
             if (host == null) {
                 //localhost conexion
                 Class.forName("com.mysql.jdbc.Driver"); // Carga el driver
-                String urlOdbc = "jdbc:mysql://localhost/libros";
+                String urlOdbc = "jdbc:mysql://localhost/CRUDdani";
                 con = (java.sql.DriverManager.getConnection(urlOdbc, "root", "root")); // crea una conexion
                 //System.out.println("Conexion realizada");
                 return con;
