@@ -20,7 +20,7 @@ public class Conexion {
             if (host == null) {
                 //localhost conexion
                 Class.forName("com.mysql.jdbc.Driver"); // Carga el driver
-                String urlOdbc = "jdbc:mysql://localhost/CRUDdani";
+                String urlOdbc = "jdbc:mysql://localhost/cruddani";
                 con = (java.sql.DriverManager.getConnection(urlOdbc, "root", "root")); // crea una conexion
                 //System.out.println("Conexion realizada");
                 return con;
@@ -31,7 +31,7 @@ public class Conexion {
                 String username = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
                 String password = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
                 Class.forName("com.mysql.jdbc.Driver"); // Carga el driver
-                String urlOdbc  = String.format("jdbc:mysql://%s/libros",host);
+                String urlOdbc  = String.format("jdbc:mysql://%s/cruddani",host);
                 con = (java.sql.DriverManager.getConnection(urlOdbc, username, password));
                 //System.out.println("Conexion realizada");
                 return con;
